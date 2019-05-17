@@ -32,7 +32,7 @@ for i = 1:m
 	% If the landmark is obeserved for the first time:
 	if (observedLandmarks(landmarkId)==false)
 		% Initialize its pose in mu based on the measurement and the current robot pose:
-		mu(2 * i + 2 : 2 * i + 3) = mu(1 : 2) + [z(i).range * cos(z(i).bearing + mu(3));z(i).range * sin(z(i).bearing + mu(3))];
+		mu(2 * landmarkId + 2 : 2 * landmarkId + 3) = mu(1 : 2) + [z(i).range * cos(z(i).bearing + mu(3));z(i).range * sin(z(i).bearing + mu(3))];
 		% Indicate in the observedLandmarks vector that this landmark has been observed
 		observedLandmarks(landmarkId) = true;
     end
@@ -41,7 +41,7 @@ for i = 1:m
 	Z(2 * i - 1 :2 * i) = [z(i).range; z(i).bearing];
 	% Use the current estimate of the landmark pose
 	% to compute the corresponding expected measurement in expectedZ:
-    delta = [mu(2 * i + 2)- mu(1);mu(2 * i + 3) - mu(2)];
+    delta = [mu(2 * landmarkId + 2)- mu(1);mu(2 * landmarkId + 3) - mu(2)];
     q = delta' * delta;
     expectedZ(2 * i - 1 :2 * i) = [sqrt(q);atan2(delta(2),delta(1)) - mu(3)];
 	% Compute the Jacobian Hi of the measurement function h for this observation
@@ -50,7 +50,7 @@ for i = 1:m
         delta(2) -delta(1) -q -delta(2) delta(1)];
     Fx_j = zeros(5, size(mu, 1));
     Fx_j(1:3,1:3) = eye(3);
-    Fx_j(4:5,2*i+2:2*i+3) = eye(2);
+    Fx_j(4:5,2*landmarkId+2:2*landmarkId+3) = eye(2);
     Hi = Hi_t * Fx_j;
 	% Augment H with the new Hi
 % 	H = [H;Hi];
