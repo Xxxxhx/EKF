@@ -4,7 +4,7 @@
 
 ## Problem 1
 
-![1558148027374](.\Homework 10.assets\1558148027374.png)
+![1558148027374](./Homework 10.assets/1558148027374.png)
 
 ### 1. Known landmark location and known associations
 
