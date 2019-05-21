@@ -32,5 +32,5 @@ function [mu, sigma] = prediction_step(mu, sigma, u)
         0, 0.2, 0; 
         0, 0, 0.02];
 
-    sigma = G * sigma * G';
+    sigma = G * sigma * G' + Q;
 end
